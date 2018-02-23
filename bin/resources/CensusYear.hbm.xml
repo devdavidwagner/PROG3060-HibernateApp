@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.org/dtd/hibernate-mapping.dtd">
+	
+	<hibernate-mapping>
+		<class name ="prog3060.dwagner.Age" table="AGE">
+			<id name = "censusYearID" type ="int">
+				<column name="CENSUSYEARID"/>
+				<generator class ="assigned"/>
+			</id>
+			
+			<property name ="censusYear" type ="int" not-null="true">
+				<column name ="CENSUSYEAR"/>
+			</property>
+		
+		
+		</class>
+	
+	
+	
+	
+	</hibernate-mapping>

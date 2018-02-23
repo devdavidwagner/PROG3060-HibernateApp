@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.org/dtd/hibernate-mapping.dtd">
+	
+	<hibernate-mapping>
+		<class name ="prog3060.dwagner.Age" table="AGE">
+			<id name = "ageID" type ="int" >
+				<column name="AGEID"/>
+				<generator class ="native"/>
+			</id>
+			
+			<property name ="ageGroup" type ="int" not-null="true">
+				<column name ="AGEGROUP"/>
+			</property>
+			
+			<property name =censusYear type ="int" not-null="true">
+				<column name ="CENSUSYEAR"/>
+			</property>
+			
+			<property name ="geoArea" type ="int" not-null="true">
+				<column name ="GEOGRAPHICAREA"/>
+			</property>
+			
+			<property name ="combined" type ="int" not-null="true">
+				<column name ="COMBINED"/>
+			</property>
+			
+			<property name ="male" type ="int" not-null="true">
+				<column name ="MALE"/>
+			</property>
+			
+			<property name ="female" type ="int" not-null="true">
+				<column name ="FEMALE"/>
+			</property>
+			
+			<many-to-one name="age" not-null="true" class="prog3060.dwagner.Age">
+				<column-name="GEOGRAPHICAREA"/>
+			</many-to-one>
+			<many-to-one name="censusYear" not-null="true" class="prog3060.dwagner.CensusYear">
+				<column-name="CENSUSYEAR"/>
+			</many-to-one>
+			<many-to-one name="age" not-null="true" class="prog3060.dwagner.AgeGroup">
+				<column-name="AGEGROUP"/>
+			</many-to-one>
+		
+		</class>
+	
+	
+	
+	
+	</hibernate-mapping>

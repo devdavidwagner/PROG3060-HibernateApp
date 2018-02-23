@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.org/dtd/hibernate-mapping.dtd">
+	
+	<hibernate-mapping>
+		<class name ="prog3060.dwagner.Age" table="AGE">
+			<id name = "geoAreaID" type ="int">
+				<column name="GEOGRAPHICAREAID"/>
+				<generator class ="assigned"/>
+			</id>
+			
+			<property name ="code" type ="int" not-null="true">
+				<column name ="CODE"/>
+			</property>
+			
+			<property name =level type ="int" not-null="true">
+				<column name ="LEVEL"/>
+			</property>
+			
+			<property name ="name" type ="java.lang.String" not-null="true">
+				<column name ="NAME"/>
+			</property>
+			
+			<property name ="altCode" type ="int" not-null="true">
+				<column name ="ALTERNATIVECODE"/>
+			</property>
+			
+		
+		
+		</class>
+	
+	
+	
+	
+	</hibernate-mapping>

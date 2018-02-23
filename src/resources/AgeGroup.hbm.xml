@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.org/dtd/hibernate-mapping.dtd">
+	
+	<hibernate-mapping>
+		<class name ="prog3060.dwagner.AgeGroup" table="AGEGROUP">
+			<id name = "ageGroupID" type ="int">
+				<column name="AGEGROUPID"/>
+				<generator class ="native"/>
+			</id>
+			
+			<property name ="description" type ="java.lang.String" not-null="true">
+				<column name ="DESCRIPTION"/>
+			</property>
+		
+		
+		</class>
+	
+	
+	
+	
+	</hibernate-mapping>
