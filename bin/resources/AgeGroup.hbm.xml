@@ -7,14 +7,19 @@
 		<class name ="prog3060.dwagner.AgeGroup" table="AGEGROUP">
 			<id name = "ageGroupID" type ="int">
 				<column name="AGEGROUPID"/>
-				<generator class ="native"/>
+				<generator class ="assigned"/>
 			</id>
 			
 			<property name ="description" type ="java.lang.String" not-null="true">
 				<column name ="DESCRIPTION"/>
 			</property>
 		
-		
+			<set name="ages" table="AGES" inverse="true">
+				<key>
+					<column name ="ageGroup"/>
+				</key>
+				<one-to-many class="prog3060.dwagner.Age"/>
+			</set>
 		</class>
 	
 	

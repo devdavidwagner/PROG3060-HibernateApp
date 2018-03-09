@@ -7,7 +7,11 @@
 
 package prog3060.dwagner;
 
+import java.util.Set;
+
 public class AgeGroup {
+	
+	public AgeGroup() {};
 	
 	public AgeGroup(int ageGroupID, String description)
 	{
@@ -31,5 +35,15 @@ public class AgeGroup {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	public Set<Age> getAges() {
+		return ages;
+	}
+
+	public void setAges(Set<Age> ages) {
+		this.ages = ages;
+	}
+
+	private Set<Age> ages;
 
 }

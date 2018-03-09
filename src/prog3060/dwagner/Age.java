@@ -8,10 +8,10 @@
 package prog3060.dwagner;
 
 public class Age {
-	
-	public Age(int ageID, AgeGroup ageGroup, CensusYear censusYear, GeographicArea geoArea, int combined, int female, int male)
+	public Age() {};
+	public Age(AgeGroup ageGroup, CensusYear censusYear, GeographicArea geoArea, int combined, int female, int male)
 	{
-		this.ageID = ageID;
+	
 		this.ageGroup = ageGroup;
 		this.censusYear = censusYear;
 		this.geoArea = geoArea;

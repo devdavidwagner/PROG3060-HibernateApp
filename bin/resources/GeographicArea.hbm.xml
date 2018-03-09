@@ -4,17 +4,17 @@
 	"http://hibernate.org/dtd/hibernate-mapping.dtd">
 	
 	<hibernate-mapping>
-		<class name ="prog3060.dwagner.Age" table="AGE">
+		<class name ="prog3060.dwagner.GeographicArea" table="GEOGRAPHICAREA">
 			<id name = "geoAreaID" type ="int">
 				<column name="GEOGRAPHICAREAID"/>
-				<generator class ="assigned"/>
+				<generator class ="native"/>
 			</id>
 			
 			<property name ="code" type ="int" not-null="true">
 				<column name ="CODE"/>
 			</property>
 			
-			<property name =level type ="int" not-null="true">
+			<property name ="level" type ="int" not-null="true">
 				<column name ="LEVEL"/>
 			</property>
 			
@@ -25,6 +25,14 @@
 			<property name ="altCode" type ="int" not-null="true">
 				<column name ="ALTERNATIVECODE"/>
 			</property>
+			
+			<set name="ages" inverse="true">
+				<key>
+					<column name ="geographicArea"/>
+				</key>
+				<one-to-many class="prog3060.dwagner.Age"/>
+
+			</set>
 			
 		
 		

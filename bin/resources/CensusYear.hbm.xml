@@ -4,7 +4,7 @@
 	"http://hibernate.org/dtd/hibernate-mapping.dtd">
 	
 	<hibernate-mapping>
-		<class name ="prog3060.dwagner.Age" table="AGE">
+		<class name ="prog3060.dwagner.CensusYear" table="CENSUSYEAR">
 			<id name = "censusYearID" type ="int">
 				<column name="CENSUSYEARID"/>
 				<generator class ="assigned"/>
@@ -14,7 +14,13 @@
 				<column name ="CENSUSYEAR"/>
 			</property>
 		
-		
+				
+			<set name="ages"  inverse="true">
+				<key>
+					<column name ="censusYear"/>
+				</key>
+				<one-to-many class="prog3060.dwagner.Age"/>
+			</set>
 		</class>
 	
 	

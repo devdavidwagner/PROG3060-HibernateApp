@@ -8,6 +8,8 @@
 
 package prog3060.dwagner;
 
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -23,27 +25,51 @@ public class HibernateApplication
 
 	
 	//takes a ageGroup param and returns list of HQL query using that param
+	@SuppressWarnings("unchecked")
 	private static List<String> ageDataQuery(Session tempSession, Transaction tempTrans,
-			SessionFactory tempSessionFact, int ageGroup)
+			SessionFactory tempSessionFact, int newCode, int ageGroup, int censusYear)
 	{
 
-      
-		List <String> ageResults = new ArrayList <String>();
+	    try {
+			DriverManager.registerDriver(new org.apache.derby.jdbc.ClientDriver());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+	  //INSERT NEW GEOAREA
+	    
+	
         
+        GeographicArea newGA = new GeographicArea(499,2,"Frenchville", 24499);
+        tempSession.save(newGA);
+        CensusYear cy = tempSession.get(CensusYear.class, censusYear);
+        AgeGroup ag = tempSession.get(AgeGroup.class, ageGroup);
+        Age age = new Age(ag, cy, newGA, 199999, 10000, 9999);
         
-		tempSession = tempSessionFact.openSession();
-        tempTrans = tempSession.beginTransaction();
+  
+        tempSession.save(age);
+     
 
-        String selectStringHQL = "SELECT a, ag, c, ga" +
-        	    "FROM Age a, AgeGroup ag, CensusYear c, GeographicArea ga " + 
-        		"WHERE a.geoArea = ga.GeoAreaID AND a.ageGroup = ag.ageGroupID " +
-        		"AND a.censusYear = c.censusYearID " +
-        		"WHERE ag.AGEGROUPID LIKE :ageGroup";
+        
+		
+		List <String> ageResults = new ArrayList <String>();
+                      
+   
+        String selectStringHQL = "SELECT a, ag, c, ga "
+     	        + "FROM Age a "
+        	    + "JOIN a.ageGroup ag " 
+        	    + "JOIN a.censusYear c "
+        	    + "JOIN a.geoArea ga "
+        		+ "WHERE ag.ageGroupID = :ageGroup AND c.censusYearID = :censusYear "
+        		+ "AND ga.altCode = :geoArea";
 		
         
 
         Query <Object[]> tempQuery = tempSession.createQuery(selectStringHQL)
-                .setParameter("ageGroup", ageGroup);
+                .setParameter("ageGroup", ageGroup)
+                .setParameter("censusYear", censusYear)
+                .setParameter("geoArea", newCode);
 
         // Setting maximum number of results may be useful in some cases for pagination
         tempQuery.setMaxResults(25);
@@ -58,6 +84,8 @@ public class HibernateApplication
                 + String.format("%-15s", "Description")
                 + String.format("%-25s", "Name")
                 + String.format("%-25s", "Code")
+                + String.format("%-25s", "Level")
+                + String.format("%-25s", "AltCode")
                 + String.format("%-25s", "Male")
                 + String.format("%-25s", "Female")
                 + String.format("%-25s", "Combined"));
@@ -83,18 +111,24 @@ public class HibernateApplication
 
             }
 
-            int tempCensusYear = censusYearTemp.getCensusYear();
+            String tempCensusYear = Integer.toString(censusYearTemp.getCensusYear());
+            
             String tempDescription = ageGroupTemp.getDescription();
             String tempName = geoAreaTemp.getName();
-            int code = geoAreaTemp.getCode();
-            int male = ageTemp.getMale();
-            int female = ageTemp.getFemale();
-            int combined = ageTemp.getCombined();
+            String code = Integer.toString(geoAreaTemp.getCode());
+            String level = Integer.toString(geoAreaTemp.getLevel());
+            String altcode = Integer.toString(geoAreaTemp.getAltCode());
+            
+            String male = Integer.toString(ageTemp.getMale());
+            String female = Integer.toString(ageTemp.getFemale());
+            String combined = Integer.toString(ageTemp.getCombined());
 
             ageResults.add(String.format("%-20s", tempCensusYear)
-                    + String.format("%-15d", tempDescription)
+                    + String.format("%-15s", tempDescription)
                     + String.format("%-25s", tempName)
                     + String.format("%-25s", code)
+                    + String.format("%-25s", level)
+                    + String.format("%-25s", altcode)
                     + String.format("%-25s", male)
                     + String.format("%-25s", female)
                     + String.format("%-25s", combined));
@@ -106,7 +140,8 @@ public class HibernateApplication
 		return ageResults;		
 	}
 
-    public static void main(String[] args)
+    @SuppressWarnings("unused")
+	public static void main(String[] args)
     {
 
         Session tempSession = null;
@@ -119,18 +154,24 @@ public class HibernateApplication
              tempConfiguration.configure("/resources/hibernate.cfg.xml");
   
              tempSessionFactory = tempConfiguration.buildSessionFactory();
+         	tempSession = tempSessionFactory.openSession();
+         	tempTransaction = tempSession.beginTransaction();
+    		
+            int newCode = 24499;
+             int ageGroupID = 21;
+             int censusYear = 1;
+             
+  
         
-             List<String> queryOutput = ageDataQuery(tempSession, tempSessionFactory, tempTransaction,)
+             List<String> queryOutput = ageDataQuery(tempSession, tempTransaction, tempSessionFactory,
+            		 newCode, ageGroupID, censusYear);
              
              
              PrintOutput("Exersize 2 Report - David Wagner ", queryOutput);
              System.out.println("Report done.");
 
             if (tempTransaction != null)
-            {
-                tempTransaction.rollback();
-
-            }
+				tempTransaction.rollback();
 
         }
         catch(Exception e)

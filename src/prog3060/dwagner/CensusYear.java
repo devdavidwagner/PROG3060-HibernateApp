@@ -7,7 +7,11 @@
 
 package prog3060.dwagner;
 
+import java.util.Set;
+
 public class CensusYear {
+	
+	public CensusYear() {};
 	
 	public CensusYear(int censusYearID, int censusYear){
 		
@@ -31,5 +35,15 @@ public class CensusYear {
 	public void setCensusYear(int censusYear) {
 		this.censusYear = censusYear;
 	}
+	
+	public Set<Age> getAges() {
+		return ages;
+	}
+
+	public void setAges(Set<Age> ages) {
+		this.ages = ages;
+	}
+
+	private Set<Age> ages;
 
 }

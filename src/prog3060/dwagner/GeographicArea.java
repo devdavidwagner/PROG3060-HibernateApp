@@ -8,10 +8,13 @@
 
 package prog3060.dwagner;
 
+import java.util.Set;
+
 public class GeographicArea {
 	
-	public GeographicArea(int geoAreaID, int code, int level, String name, int altCode) {
-		this.setGeoAreaID(geoAreaID);
+	public GeographicArea() {};
+	
+	public GeographicArea(int code, int level, String name, int altCode) {
 		this.setCode(code);
 		this.setLevel(level);
 		this.setName(name);
@@ -83,7 +86,15 @@ public class GeographicArea {
 		this.name = name;
 	}
 
+	public Set<Age> getAges() {
+		return ages;
+	}
 
+	public void setAges(Set<Age> ages) {
+		this.ages = ages;
+	}
+
+	private Set<Age> ages;
 
 
 

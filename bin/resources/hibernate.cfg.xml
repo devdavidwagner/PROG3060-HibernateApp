@@ -9,13 +9,13 @@
 			org.apache.derby.jdbc.ClientDriver
 			</property>
 			<property name="hibernate.connection.url">
-			jdbc:derby://localhost:1527/G:/CanadaCensusDB
+			jdbc:derby://localhost:1527/C:/CanadaCensusDB
 			</property>
 			<property name="hibernate.connection.username">
-			dwet
+			PROG3060
 			</property>
 			<property name="hibernate.connection.password">
-			password123
+			a6qBEg26
 			</property>
 			<property name="hibernate.connection.pool_size">
 			10
@@ -30,10 +30,10 @@
 			org.hibernate.dialect.DerbyTenSevenDialect
 			</property>
 			
-			<mapping resource="Age.hbm.xml"/>
-			<mapping resource="AgeGroup.hbm.xml"/>
-			<mapping resource="CensusYear.hbm.xml"/>
-			<mapping resource="GeographicArea.hbm.xml"/>
+			<mapping resource="/resources/Age.hbm.xml"/>
+			<mapping resource="/resources/AgeGroup.hbm.xml"/>
+			<mapping resource="/resources/CensusYear.hbm.xml"/>
+			<mapping resource="/resources/GeographicArea.hbm.xml"/>
 		</session-factory>
 	
 	</hibernate-configuration>
